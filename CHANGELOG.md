@@ -21,6 +21,11 @@
 - Update CI/CD pipeline which now also has pre-built binaries, automate github release and docker release image.
   ([Issue #31](https://github.com/cycloidio/terracognita/issues/31))
 
+### Changed
+
+- The Terraform version from 0.11 to 0.12 with all the implications (file formats) https://www.terraform.io/upgrade-guides/0-12.html
+  ([PR #33](https://github.com/cycloidio/terracognita/pull/33))
+
 ### Fixed
 
 - Error with the Import Filter not validating before Importing/Reading
