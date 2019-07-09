@@ -50,10 +50,7 @@ func TestFormat(t *testing.T) {
 					"some.thing" = "s"
 				}
 			`),
-			// The output it's a bit wierd as it required
-			// an \n before and after the block
 			out: []byte(`
-
 				ebs_block_device {
 					volume_size = 24
 				}
