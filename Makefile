@@ -41,7 +41,7 @@ lint: $(GOLANGCI_LINT) $(GOLINT) ## Runs the linter
 
 .PHONY: generate
 generate: $(MOCKGEN) ## Generates the needed code
-	@GO111MODULE=on go generate ./...
+	@rm -rf ./mock/ && GO111MODULE=on go generate ./...
 
 .PHONY: test
 test: ## Runs the tests
