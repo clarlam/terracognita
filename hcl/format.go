@@ -17,12 +17,12 @@ var (
 	}{
 		{
 			// Replace all the `"key" = "value"` for `key = "value"`
-			match:   regexp.MustCompile(`"([^\d.][\w\-_\.]+)"\s=`),
+			match:   regexp.MustCompile(`"([^\d][\w\-_]+)"\s=`),
 			replace: []byte(`$1 =`),
 		},
 		{
 			// Replace all the `key = {` for `key {`
-			match: regexp.MustCompile(`([\w\-_\.]+)\s=\s{`),
+			match: regexp.MustCompile(`([\w\-_]+)\s=\s{`),
 			replaceFn: func(m []byte) []byte {
 				if string(m) == `tags = {` {
 					return []byte(fmt.Sprintf("%s", m))
