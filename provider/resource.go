@@ -220,6 +220,11 @@ func (r *resource) Read(f *filter.Filter) error {
 		return err
 	}
 
+	// In case it's not Imported we need a state
+	if r.state == nil {
+		r.state = &terraform.InstanceState{}
+	}
+
 	oldStateVal, err := hcl2shim.HCL2ValueFromFlatmap(r.state.Attributes, r.CoreConfigSchema().ImpliedType())
 	if err != nil {
 		return err
@@ -297,6 +302,15 @@ func (r *resource) refreshWithoutUpgrade(s *terraform.InstanceState, meta interf
 	// and ID
 	if r.Data() != nil && r.tfResource.Importer == nil {
 		data = r.Data()
+	}
+
+	// If it has no ID on the data but yes on the resource set it
+	// this happens in resources which are not Imported (data will be nil)
+	// and the ID was setted only to the Resource on the initialization of
+	// the provider
+	if (data == nil || data.Id() == "") && r.ID() != "" {
+		data = r.Data()
+		data.SetId(r.ID())
 	}
 
 	err = r.TFResource().Read(data, meta)
